@@ -1,5 +1,3 @@
 package fr.lehautcambara.gitstars.bus.events
 
-class RepoRequestEvent : BusEvent() {
-
-}
+class RepoRequestEvent() : BusEvent()
