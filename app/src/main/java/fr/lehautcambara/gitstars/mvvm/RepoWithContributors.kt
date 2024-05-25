@@ -1,11 +1,13 @@
-package fr.lehautcambara.gitstars.repositories
+package fr.lehautcambara.gitstars.mvvm
 
 import fr.lehautcambara.gitstars.network.retrofit.Contributor
 import fr.lehautcambara.gitstars.network.retrofit.Owner
 import fr.lehautcambara.gitstars.network.retrofit.Repo
 import kotlin.random.Random
 
+// Compose the repo and the contributors into a single object
 data class RepoWithContributors(val repo: Repo , val contribs: List<Contributor>?) {
+    // companion object for generating mock objects for testing
     companion object {
         private fun makeRandom(i: Int) : RepoWithContributors {
             return RepoWithContributors(
