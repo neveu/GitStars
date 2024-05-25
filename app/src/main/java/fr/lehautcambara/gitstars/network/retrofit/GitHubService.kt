@@ -5,15 +5,16 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
 
+private const val Authorization = "Authorization: Bearer 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"
 interface GitHubService {
-    @Headers("Authorization:  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")
+    @Headers(Authorization)
     @GET("search/repositories?q=stars:>0&sort=stars&per_page=100")
     fun reposByStars() : Call<RepoList>
 
-    @Headers("Authorization:  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")
-    @GET("repos/{owner}/{name}/contributors")
+    @Headers(Authorization)
+    @GET("repos/{name}/{owner}/contributors")
     fun repoContributors(
-        @Path("owner") owner: String,
         @Path("name") name: String,
+        @Path("owner") owner: String,
     ) : Call<List<Contributor>>
 }
