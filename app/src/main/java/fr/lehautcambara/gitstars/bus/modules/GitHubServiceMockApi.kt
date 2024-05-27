@@ -1,4 +1,4 @@
-package fr.lehautcambara.gitstars.network.retrofit
+package fr.lehautcambara.gitstars.bus.modules
 
 import android.util.Log
 import fr.lehautcambara.gitstars.bus.events.DelayEvent
@@ -6,7 +6,10 @@ import fr.lehautcambara.gitstars.bus.events.RepoContributorsRequestEvent
 import fr.lehautcambara.gitstars.bus.events.RepoRequestEvent
 import fr.lehautcambara.gitstars.bus.events.RepoResponseEvent
 import fr.lehautcambara.gitstars.bus.events.RepoWithContributorsEvent
-import fr.lehautcambara.gitstars.bus.modules.BusModule
+import fr.lehautcambara.gitstars.network.retrofit.Contributor
+import fr.lehautcambara.gitstars.network.retrofit.Owner
+import fr.lehautcambara.gitstars.network.retrofit.Repo
+import fr.lehautcambara.gitstars.network.retrofit.RepoList
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.Random
@@ -32,7 +35,7 @@ class GitHubServiceMockApi : BusModule() {
         event.repoList?.apply{
             items.forEach{ repo: Repo ->
                 Log.d("debugmockrepo", repo.name)
-                with(repo) { post(RepoContributorsRequestEvent(this, name, owner.login)) }
+                with(repo) { post(RepoContributorsRequestEvent(this)) }
             }
         }
     }

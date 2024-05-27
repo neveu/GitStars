@@ -13,6 +13,7 @@ object Core {
         .addLast(KotlinJsonAdapterFactory())
         .build()
 
+    // had to increase the timout from 10 secs default to avoid socket timeouts
     private val client: OkHttpClient = OkHttpClient().newBuilder()
         .connectTimeout(60, TimeUnit.SECONDS)
         .readTimeout(60, TimeUnit.SECONDS)

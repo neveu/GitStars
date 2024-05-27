@@ -2,7 +2,8 @@ package fr.lehautcambara.gitstars.base
 
 import android.app.Application
 import fr.lehautcambara.gitstars.bus.modules.DelayModule
-import fr.lehautcambara.gitstars.network.retrofit.GitServiceAPI
+import fr.lehautcambara.gitstars.bus.modules.ErrorHandlerModule
+import fr.lehautcambara.gitstars.bus.modules.GitServiceAPI
 
 class GitStarsApp : Application() {
 
@@ -12,6 +13,7 @@ class GitStarsApp : Application() {
     }
     private fun registerBusModules() {
         DelayModule()
+        ErrorHandlerModule()
         GitServiceAPI()
     }
 

@@ -20,7 +20,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             GitStarsTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -29,11 +28,9 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-        RepoRequestEvent().post()
+        RepoRequestEvent().post() // Events can post themselves
     }
 }
-
-
 
 @Preview(showBackground = true)
 @Composable

@@ -1,6 +1,5 @@
 package fr.lehautcambara.gitstars.ui
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -58,26 +57,27 @@ private fun RepositoryList(repoList: List<RepoWithContributors>, progress: Float
                 )
             }
         }
-        if (progress == null) {
-            CircularProgressIndicator(
-                color = Color.Red,
-                strokeWidth = 5.dp,
-                modifier = Modifier
-                    .size(100.dp)
-                    .align(Center),
-            )
-        } else if (progress < 0.9) {
-            CircularProgressIndicator(
-                progress = progress,
-                color = Color.Red,
-                strokeWidth = 5.dp,
-                modifier = Modifier
-                    .size(100.dp)
-                    .align(Center),
-            )
-        } else {
-            Log.d("RepositoryScreen", "not loading")
-        }
+       ShowProgress(progress = progress, modifier = Modifier.align(Center))
+    }
+}
+
+@Composable
+private fun ShowProgress(progress: Float?, modifier: Modifier) {
+    if (progress == null) {
+        CircularProgressIndicator(
+            color = Color.Red,
+            strokeWidth = 5.dp,
+            modifier = modifier
+                .size(100.dp)
+        )
+    } else if (progress < 0.9) {
+        CircularProgressIndicator(
+            progress = progress,
+            color = Color.Red,
+            strokeWidth = 5.dp,
+            modifier = modifier
+                .size(100.dp)
+        )
     }
 }
 

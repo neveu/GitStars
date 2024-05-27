@@ -19,13 +19,13 @@ class RepoListVm : ViewModel() {
 
     private var _uiState: MutableStateFlow<RepoListUIState> = MutableStateFlow(RepoListUIState())
     val uiState: StateFlow<RepoListUIState> = _uiState.asStateFlow()
-
+    // VM state
     private val repoList = mutableListOf<RepoWithContributors>()
     private var numRepos: Int = 0
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     fun onEvent(event: RepoRequestEvent) {
         _uiState.update {uiState ->
-            uiState.copy(loading = true)
+            uiState.copy(progress = 0F)
         }
     }
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
@@ -36,10 +36,10 @@ class RepoListVm : ViewModel() {
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     fun onEvent(event: RepoWithContributorsEvent) {
         repoList.add(event.repoWithContributors)
-        val loading: Boolean = repoList.size != numRepos
-        val progress = repoList.size.toFloat()/numRepos.toFloat()
         _uiState.update {uiState ->
-            uiState.copy(repoWithContribList = repoList.toList(), loading = loading, progress = progress)
+            uiState.copy(
+                repoWithContribList = repoList.toList(),
+                progress = repoList.size.toFloat()/numRepos)
         }
     }
 
