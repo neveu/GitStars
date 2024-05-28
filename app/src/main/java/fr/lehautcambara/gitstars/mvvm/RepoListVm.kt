@@ -2,7 +2,6 @@ package fr.lehautcambara.gitstars.mvvm
 
 import androidx.lifecycle.ViewModel
 import fr.lehautcambara.gitstars.bus.Bus
-import fr.lehautcambara.gitstars.bus.events.RepoRequestEvent
 import fr.lehautcambara.gitstars.bus.events.RepoResponseEvent
 import fr.lehautcambara.gitstars.bus.events.RepoWithContributorsEvent
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,13 +22,11 @@ class RepoListVm : ViewModel() {
     private val repoList = mutableListOf<RepoWithContributors>()
     private var numRepos: Int = 0
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    fun onEvent(event: RepoRequestEvent) {
-        _uiState.update {uiState ->
-            uiState.copy(progress = 0F)
-        }
-    }
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
     fun onEvent(event: RepoResponseEvent) {
+        _uiState.update { uiState ->
+            uiState.copy(progress = 0F)
+
+        }
         event.repoList?.items?.size?.let { numRepos = it }
     }
 
@@ -38,7 +35,9 @@ class RepoListVm : ViewModel() {
         repoList.add(event.repoWithContributors)
         _uiState.update {uiState ->
             uiState.copy(
-                repoWithContribList = repoList.toList(),
+                repoWithContribList = repoList.toList().sortedByDescending{
+                    it.repo.stargazers_count
+                },
                 progress = repoList.size.toFloat()/numRepos)
         }
     }

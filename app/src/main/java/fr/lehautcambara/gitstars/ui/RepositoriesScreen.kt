@@ -21,7 +21,7 @@ import fr.lehautcambara.gitstars.ui.theme.GitStarsTheme
 import kotlinx.coroutines.flow.StateFlow
 
 @Composable
-fun RepositoriesScreen(uiState: StateFlow<RepoListUIState>, modifier: Modifier = Modifier) {
+fun RepositoriesScreen(uiState: StateFlow<RepoListUIState>) {
     RepositoryList(uiState)
 }
 
@@ -33,11 +33,7 @@ private fun RepositoryList(uiState: StateFlow<RepoListUIState>) {
 
 @Composable
 private fun RepositoryList(repoListUIState: RepoListUIState) {
-    val repoList: List<RepoWithContributors> = repoListUIState
-        .repoWithContribList
-        .sortedByDescending{
-            it.repo.stargazers_count
-        }
+    val repoList: List<RepoWithContributors> = repoListUIState.repoWithContribList
     RepositoryList(repoList,  repoListUIState.progress)
 }
 

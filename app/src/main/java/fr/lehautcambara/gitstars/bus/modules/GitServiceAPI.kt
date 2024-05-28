@@ -51,17 +51,17 @@ class GitServiceAPI : BusModule(){
                 override fun onResponse(p0: Call<List<Contributor>>, response: Response<List<Contributor>>) {
                     when(response.code()) {
                         200 -> post(RepoWithContributorsEvent(event.repo, response.body()))
-                        203, 403 -> post(RepoWithContributorsEvent(event.repo, null))
-                        else -> post(RepoWithContributorsEvent(event.repo, null))
+                        203-> post(RepoWithContributorsEvent(event.repo, null))
+                        else -> post(RepoWithContributorsEvent(event.repo, null)) // other errors are conflated for this demo
                     }
                 }
 
                 override fun onFailure(p0: Call<List<Contributor>>, p1: Throwable) {
                     post(GitHubServiceError(event, p1))
                 }
-            })
+            }
+            )
     }
-
 }
 
 
