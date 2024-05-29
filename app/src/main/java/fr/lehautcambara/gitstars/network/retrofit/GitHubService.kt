@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
 
-//private const val Authorization = "Authorization: Bearer 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"
+private const val Authorization0 = "Authorization: Bearer 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"
 private const val Authorization = "Authorization: Bearer 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"
 
 interface GitHubService {
